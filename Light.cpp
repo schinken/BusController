@@ -18,6 +18,6 @@ void Light::setRelativeBrightness(int16_t value) {
   int16_t tmp = this->value;
   tmp += value;
 
-  this->setBrightness(tmp);
+  this->setBrightness(constrain(tmp, 0, 255));
 }
 
