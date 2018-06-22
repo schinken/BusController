@@ -24,8 +24,13 @@
 #define PIN_DOOR_BUTTON_2 38
 #define PIN_DOOR_CONTACT 36
 
-#define CH_LIGHT_TOP_LEFT 30
-#define CH_LIGHT_TOP_RIGHT 29
+#define CH_LIGHT_CEILING_LEFT 30
+#define CH_LIGHT_CEILING_RIGHT 29
+#define CH_LIGHT_SHELF_TOP 28
+#define CH_LIGHT_SHELF_MIDDLE 27
+#define CH_LIGHT_SHELF_BOTTOM 26
+#define CH_LIGHT_BED_LEFT 25
+#define CH_LIGHT_BED_RIGHT 24
 
 Bounce* BounceFactory(uint8_t pin) {
   pinMode(pin, INPUT_PULLUP);
@@ -37,8 +42,8 @@ Bounce* BounceFactory(uint8_t pin) {
   return bounce;
 }
 
-Light* lightBedLeft = new Light(23);
-Light* lightBedRight = new Light(22);
+Light* lightBedLeft = new Light(CH_LIGHT_BED_LEFT);
+Light* lightBedRight = new Light(CH_LIGHT_BED_RIGHT);
 
 LightGroup* lightAll = new LightGroup();
 
@@ -63,13 +68,11 @@ Bedside* bedRight = new Bedside(
 void setup() {
   DMXSerial.init(DMXController);
 
-  lightAll->addLight(new Light(30));
-  lightAll->addLight(new Light(29));
-  lightAll->addLight(new Light(28));
-  lightAll->addLight(new Light(27));
-  lightAll->addLight(new Light(26));
-  lightAll->addLight(new Light(25));
-  lightAll->addLight(new Light(24));
+  lightAll->addLight(new Light(CH_LIGHT_CEILING_LEFT));
+  lightAll->addLight(new Light(CH_LIGHT_CEILING_RIGHT));
+  lightAll->addLight(new Light(CH_LIGHT_SHELF_TOP));
+  lightAll->addLight(new Light(CH_LIGHT_SHELF_MIDDLE));
+  lightAll->addLight(new Light(CH_LIGHT_SHELF_BOTTOM));
   lightAll->addLight(lightBedLeft);
   lightAll->addLight(lightBedRight);
 }
