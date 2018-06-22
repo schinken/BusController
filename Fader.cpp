@@ -1,11 +1,12 @@
 #include "Fader.h"
 
 
-Fader::Fader(AbstractLight* light) : light(light), finished(true) {
+Fader::Fader(AbstractLight* light) : light(light), running(false) {
 }
 
 void Fader::fadeTo(float target, float step) {
   this->current = this->light->getBrightness();
+  this->last = this->current;
   this->target = target;
   
   this->step = step;
@@ -13,23 +14,29 @@ void Fader::fadeTo(float target, float step) {
     this->step *= -1;  
   }
   
-  this->finished = false;
+  this->running = true;
 }
 
 void Fader::tick(void) {
-  if (this->finished) {
+  if (!this->running) {
     return;
   }
 
   this->current += this->step;
-  if (this->step < 0 && this->current <= this->target) {
-    this->current = this->target;
-    this->finished = true;
-  } else if (this->step > 0 && this->current >= this->target) {
-    this->current = this->target;
-    this->finished = true;
+
+  // Did we reach our target? 
+  if ((this->step < 0 && this->current <= this->target) ||
+      (this->step > 0 && this->current >= this->target)) {
+    this->light->setBrightness(this->target);
+    this->running = false;
+
+    return;
   }
-  
-  this->light->setBrightness(this->current);
+
+  int16_t diff = (int16_t) this->current - (int16_t) this->last;
+  if (abs(diff) > 1) {
+    this->light->setRelativeBrightness(diff);
+    this->last = this->current;
+  }
 }
 

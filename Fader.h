@@ -9,9 +9,10 @@ class Fader final {
   private:
     AbstractLight* light;
     
-    bool finished;
+    bool running;
     
     float step;
+    float last;
     float current;
     float target;
     
