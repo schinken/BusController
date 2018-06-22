@@ -10,6 +10,7 @@ class LightGroup final : public virtual AbstractLight {
 
   private:
     AbstractLight* lights[MAX_LIGHTS];
+    int8_t size;
     
   public:
     LightGroup();
