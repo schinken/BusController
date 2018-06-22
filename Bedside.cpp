@@ -8,8 +8,6 @@ Bedside::Bedside(
 }
 
 void Bedside::loop(void) {
-  this->encoder->tick();
-
   AbstractLight* light = this->trayLight;
   if (this->encoderButton->read() == LOW) {
     light = this->mainLight;
@@ -24,6 +22,7 @@ void Bedside::loop(void) {
 
   this->encoderPositionOld = newPosition;
 
+  this->encoder->tick();
   this->encoderButton->update();
   this->button->update();
 }

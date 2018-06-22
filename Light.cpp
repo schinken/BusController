@@ -6,7 +6,7 @@ Light::Light(uint8_t channel) {
 }
 
 void Light::setBrightness(uint8_t value) {
-  this->value = value;
+  this->value = constrain(value, 0, 255);
   DMXSerial.write(this->channel, this->value);
 }
 
@@ -18,6 +18,6 @@ void Light::setRelativeBrightness(int16_t value) {
   int16_t tmp = this->value;
   tmp += value;
 
-  this->setBrightness(constrain(tmp, 0, 255));
+  this->setBrightness(tmp);
 }
 
