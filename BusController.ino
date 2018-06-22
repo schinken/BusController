@@ -5,7 +5,6 @@
 #include "Bedside.h"
 #include "RotaryEncoder.h"
 
-
 #define PIN_BED_L_BUTTON_1 53
 #define PIN_BED_L_BUTTON_2 51
 #define PIN_BED_L_ROTARY_CLK 49
@@ -40,15 +39,16 @@ LightGroup* lightAll = new LightGroup();
 
 Bedside* bedLeft = new Bedside(
   new RotaryEncoder(PIN_BED_L_ROTARY_CLK, PIN_BED_L_ROTARY_DT), BounceFactory(PIN_BED_L_ROTARY_SWITCH),
-  BounceFactory(PIN_BED_L_BUTTON_1), BounceFactory(PIN_BED_L_BUTTON_2),
-  BounceFactory(PIN_BED_L_BUTTON_3)
+  BounceFactory(PIN_BED_L_BUTTON_1), BounceFactory(PIN_BED_L_BUTTON_2), BounceFactory(PIN_BED_L_BUTTON_3),
+  lightBedLeft, lightAll
 );
 
 Bedside* bedRight = new Bedside(
   new RotaryEncoder(PIN_BED_R_ROTARY_CLK, PIN_BED_R_ROTARY_DT), BounceFactory(PIN_BED_R_ROTARY_SWITCH),
-  BounceFactory(PIN_BED_R_BUTTON_1), BounceFactory(PIN_BED_R_BUTTON_2),
-  BounceFactory(PIN_BED_R_BUTTON_3)
+  BounceFactory(PIN_BED_R_BUTTON_1), BounceFactory(PIN_BED_R_BUTTON_2), BounceFactory(PIN_BED_R_BUTTON_3),
+  lightBedRight, lightAll
 );
+
 
 void setup() {
   DMXSerial.init(DMXController);
@@ -62,12 +62,6 @@ void setup() {
   lightAll->addLight(new Light(24));
   lightAll->addLight(lightBedLeft);
   lightAll->addLight(lightBedRight);
-
-  bedLeft->setTrayLight(lightBedLeft);
-  bedLeft->setMainLight(lightAll);
-
-  bedRight->setTrayLight(lightBedRight);
-  bedRight->setMainLight(lightAll);
 }
 
 void loop() {

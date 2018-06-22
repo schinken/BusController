@@ -1,16 +1,12 @@
 #include "Bedside.h"
 
-Bedside::Bedside(RotaryEncoder* encoder, Bounce* encoderButton, Bounce* button1, Bounce* button2, Bounce* button3) :
-  encoder(encoder), encoderButton(encoderButton), button1(button1), button2(button2), button3(button3)
+Bedside::Bedside(
+  RotaryEncoder* encoder, Bounce* encoderButton, Bounce* button1, Bounce* button2, Bounce* button3, AbstractLight* trayLight, AbstractLight* mainLight) :
+  encoder(encoder), encoderButton(encoderButton),
+  button1(button1), button2(button2), button3(button3),
+  trayLight(trayLight), mainLight(mainLight)
 { 
-}
-
-void Bedside::setTrayLight(AbstractLight* light) {
-  this->tray = light;
-}
-
-void Bedside::setMainLight(AbstractLight* light) {
-  this->main = light;
+  this->mainFader = new Fader(mainLight);
 }
 
 void Bedside::loop(void) {
@@ -18,16 +14,16 @@ void Bedside::loop(void) {
 
 
   if (this->button1->fell()) {
-    if (this->main->getBrightness() > 10) {
-      this->main->setBrightness(0);
+    if (this->mainLight->getBrightness() > 10) {
+      this->mainFader->fadeTo(0, 0.1);
     } else {
-      this->main->setBrightness(255);
+      this->mainFader->fadeTo(255, 0.1);
     }
   }
 
-  AbstractLight* light = this->tray;
+  AbstractLight* light = this->trayLight;
   if (this->encoderButton->read() == LOW) {
-    light = this->main;
+    light = this->mainLight;
   }
 
 
@@ -45,5 +41,7 @@ void Bedside::loop(void) {
   this->button1->update();
   this->button2->update();
   this->button3->update();
+
+  this->mainFader->tick();
 }
 
