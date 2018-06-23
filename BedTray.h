@@ -1,11 +1,11 @@
-#ifndef __BEDSIDE_H__
-#define __BEDSIDE_H__
+#ifndef __BEDTRAY_H__
+#define __BEDTRAY_H__
 
 #include <RotaryEncoder.h>
 #include "Button.h"
 #include "AbstractLight.h"
 
-class Bedside {
+class BedTray {
   
   private:
     AbstractLight* trayLight;
@@ -19,7 +19,7 @@ class Bedside {
     long encoderPositionOld;
 
   public:
-    Bedside(RotaryEncoder* encoder, Button* encoderButton, Button* button, AbstractLight* trayLight, AbstractLight* mainLight);
+    BedTray(RotaryEncoder* encoder, Button* encoderButton, Button* button, AbstractLight* trayLight, AbstractLight* mainLight);
 
     void loop(void);
 };

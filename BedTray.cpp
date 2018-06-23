@@ -1,13 +1,13 @@
-#include "Bedside.h"
+#include "BedTray.h"
 
-Bedside::Bedside(
+BedTray::BedTray(
   RotaryEncoder* encoder, Button* encoderButton, Button* button, AbstractLight* trayLight, AbstractLight* mainLight) :
   encoder(encoder), encoderButton(encoderButton), button(button),
   trayLight(trayLight), mainLight(mainLight)
 { 
 }
 
-void Bedside::loop(void) {
+void BedTray::loop(void) {
   AbstractLight* light = this->trayLight;
   if (this->encoderButton->pressed()) {
     light = this->mainLight;

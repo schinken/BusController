@@ -2,7 +2,7 @@
 #include <Bounce2.h>
 #include "Light.h"
 #include "LightGroup.h"
-#include "Bedside.h"
+#include "BedTray.h"
 #include "Fader.h"
 #include "RotaryEncoder.h"
 #include "Button.h"
@@ -44,13 +44,13 @@ Button* doorMainSwitch = new Button(PIN_DOOR_BUTTON_1);
 Button* leftBedMainSwitch = new Button(PIN_BED_L_BUTTON_1);
 Button* rightBedMainSwitch = new Button(PIN_BED_R_BUTTON_1);
 
-Bedside* bedLeft = new Bedside(
+BedTray* bedTrayLeft = new BedTray(
   new RotaryEncoder(PIN_BED_L_ROTARY_CLK, PIN_BED_L_ROTARY_DT), new Button(PIN_BED_L_ROTARY_SWITCH),
   new Button(PIN_BED_L_BUTTON_3),
   lightBedLeft, lightAll
 );
 
-Bedside* bedRight = new Bedside(
+BedTray* bedTrayRight = new BedTray(
   new RotaryEncoder(PIN_BED_R_ROTARY_CLK, PIN_BED_R_ROTARY_DT), new Button(PIN_BED_R_ROTARY_SWITCH),
   new Button(PIN_BED_R_BUTTON_3),
   lightBedRight, lightAll
@@ -78,8 +78,8 @@ void loop() {
     }
   }
   
-  bedLeft->loop();
-  bedRight->loop();
+  bedTrayLeft->loop();
+  bedTrayRight->loop();
 
   doorMainSwitch->update();
   leftBedMainSwitch->update();
