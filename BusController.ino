@@ -5,6 +5,7 @@
 #include "Bedside.h"
 #include "Fader.h"
 #include "RotaryEncoder.h"
+#include "Button.h"
 
 #define PIN_BED_L_BUTTON_1 53
 #define PIN_BED_L_BUTTON_2 51
@@ -32,16 +33,6 @@
 #define CH_LIGHT_BED_LEFT 25
 #define CH_LIGHT_BED_RIGHT 24
 
-Bounce* BounceFactory(uint8_t pin) {
-  pinMode(pin, INPUT_PULLUP);
-    
-  Bounce* bounce = new Bounce();
-  bounce->attach(pin);
-  bounce->interval(10);
-
-  return bounce;
-}
-
 Light* lightBedLeft = new Light(CH_LIGHT_BED_LEFT);
 Light* lightBedRight = new Light(CH_LIGHT_BED_RIGHT);
 
@@ -49,19 +40,19 @@ LightGroup* lightAll = new LightGroup();
 
 Fader* mainFader = new Fader(lightAll);
 
-Bounce* doorMainSwitch = BounceFactory(PIN_DOOR_BUTTON_1);
-Bounce* leftBedMainSwitch = BounceFactory(PIN_BED_L_BUTTON_1);
-Bounce* rightBedMainSwitch = BounceFactory(PIN_BED_R_BUTTON_1);
+Button* doorMainSwitch = new Button(PIN_DOOR_BUTTON_1);
+Button* leftBedMainSwitch = new Button(PIN_BED_L_BUTTON_1);
+Button* rightBedMainSwitch = new Button(PIN_BED_R_BUTTON_1);
 
 Bedside* bedLeft = new Bedside(
-  new RotaryEncoder(PIN_BED_L_ROTARY_CLK, PIN_BED_L_ROTARY_DT), BounceFactory(PIN_BED_L_ROTARY_SWITCH),
-  BounceFactory(PIN_BED_L_BUTTON_3),
+  new RotaryEncoder(PIN_BED_L_ROTARY_CLK, PIN_BED_L_ROTARY_DT), new Button(PIN_BED_L_ROTARY_SWITCH),
+  new Button(PIN_BED_L_BUTTON_3),
   lightBedLeft, lightAll
 );
 
 Bedside* bedRight = new Bedside(
-  new RotaryEncoder(PIN_BED_R_ROTARY_CLK, PIN_BED_R_ROTARY_DT), BounceFactory(PIN_BED_R_ROTARY_SWITCH),
-  BounceFactory(PIN_BED_R_BUTTON_3),
+  new RotaryEncoder(PIN_BED_R_ROTARY_CLK, PIN_BED_R_ROTARY_DT), new Button(PIN_BED_R_ROTARY_SWITCH),
+  new Button(PIN_BED_R_BUTTON_3),
   lightBedRight, lightAll
 );
 

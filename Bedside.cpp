@@ -1,7 +1,7 @@
 #include "Bedside.h"
 
 Bedside::Bedside(
-  RotaryEncoder* encoder, Bounce* encoderButton, Bounce* button, AbstractLight* trayLight, AbstractLight* mainLight) :
+  RotaryEncoder* encoder, Button* encoderButton, Button* button, AbstractLight* trayLight, AbstractLight* mainLight) :
   encoder(encoder), encoderButton(encoderButton), button(button),
   trayLight(trayLight), mainLight(mainLight)
 { 
@@ -9,7 +9,7 @@ Bedside::Bedside(
 
 void Bedside::loop(void) {
   AbstractLight* light = this->trayLight;
-  if (this->encoderButton->read() == LOW) {
+  if (this->encoderButton->pressed()) {
     light = this->mainLight;
   }
 

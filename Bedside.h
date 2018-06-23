@@ -2,7 +2,7 @@
 #define __BEDSIDE_H__
 
 #include <RotaryEncoder.h>
-#include <Bounce2.h>
+#include "Button.h"
 #include "AbstractLight.h"
 
 class Bedside {
@@ -12,14 +12,14 @@ class Bedside {
     AbstractLight* mainLight;
 
     RotaryEncoder* encoder;
-    Bounce* encoderButton;
+    Button* encoderButton;
     
-    Bounce* button;
+    Button* button;
 
     long encoderPositionOld;
 
   public:
-    Bedside(RotaryEncoder* encoder, Bounce* encoderButton, Bounce* button, AbstractLight* trayLight, AbstractLight* mainLight);
+    Bedside(RotaryEncoder* encoder, Button* encoderButton, Button* button, AbstractLight* trayLight, AbstractLight* mainLight);
 
     void loop(void);
 };
