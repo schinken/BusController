@@ -7,8 +7,8 @@ Light::Light(uint8_t channel) {
 }
 
 void Light::setBrightness(uint8_t value) {
-  this->value = CIE[value];
-  DMXSerial.write(this->channel, this->value);
+  this->value = value;
+  DMXSerial.write(this->channel, CIE[this->value]);
 }
 
 uint8_t Light::getBrightness(void) {
