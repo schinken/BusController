@@ -4,6 +4,7 @@
 #include "AbstractLight.h"
 #include <DMXSerial.h>
 
+
 class Light final : public virtual AbstractLight {
 
   private:

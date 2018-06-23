@@ -1,4 +1,5 @@
 #include "Light.h"
+#include "CIE.h"
 
 Light::Light(uint8_t channel) {
   this->channel = channel;
@@ -6,7 +7,7 @@ Light::Light(uint8_t channel) {
 }
 
 void Light::setBrightness(uint8_t value) {
-  this->value = constrain(value, 0, 255);
+  this->value = CIE[value];
   DMXSerial.write(this->channel, this->value);
 }
 
